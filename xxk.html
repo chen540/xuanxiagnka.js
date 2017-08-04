@@ -41,8 +41,7 @@
 </body>
 <script type="text/javascript" src="js/mylib.js"></script>
 <script type="text/javascript">
-	function myTab(option){
-		alert(this.etype);
+	/*function myTab(option){
 		if (option.etype == undefined) {
 			option.etype = "mouseover";
 		};
@@ -53,8 +52,8 @@
 			$con = document.querySelector(option.con),
 			$li = $nav.childNodes,
 			$p = $con.childNodes;
-		// this.etype = "mouseover";
-		// this.act = "active";
+		this.etype = "mouseover";
+		this.act = "active";
 		$nav.addHandler(option.etype,function(e){
 			var e = e||window.event;
 			var target = e.target||e.srcElement;
@@ -84,6 +83,49 @@
 		nav:".myul",
 		con:".con",
 	});
-	
+	*/
+	Element.prototype.myTab=function(option){
+		if (option.etype == undefined) {
+			option.etype = "mouseover";
+		};
+		if(option.act == undefined){
+			option.act = "active";
+		}
+			
+		var	$con = document.querySelector(option.mycon),
+			$li = this.childNodes,
+			$p = $con.childNodes;
+		this.etype = "mouseover";
+		this.act = "active";
+		this.addHandler(option.etype,function(e){
+			var e = e||window.event;
+			var target = e.target||e.srcElement;
+			if (target.tagName== "LI"){
+				showTab(target.index());
+			}
+		});
+		function showTab(_now){
+			for (var i = 0; i < $p.length; i++) {
+				if (i==_now) {
+					$p[i].style.display = "block";
+					$li[i].addClass(option.act);
+				 }else{
+					$p[i].style.display = "none";
+					$li[i].removeClass(option.act);
+				}
+			}
+		}
+	}
+	var $nav = document.querySelector(".myul");
+	$nav.myTab({
+		mycon:".con",
+		etype:"click"
+	})
+	var abc = document.querySelector(".abc");
+	abc.myTab({
+		mycon:".def",
+		act:"act"
+	}) 
+
 </script>
 </html>
