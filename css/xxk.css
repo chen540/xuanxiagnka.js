@@ -1,0 +1,72 @@
+@charset "uft-8";
+*{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	border: none;
+}
+.wrap{
+	width: 400px;
+	/* height: 450px; */
+	margin: 100px auto 0;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.nav {
+	width: 400px;
+	height: 50px;
+	background: #666;
+}
+.myul {
+	overflow: hidden;
+}
+.myul li {
+	float: left;
+	width: 100px;
+	text-align: center;
+	line-height: 50px;
+	cursor: pointer;
+}
+.active {
+	background: #333;
+	color: #fff;
+}
+.con {
+	width: 400px;
+	height: 400px;
+	background: #333;
+}
+.con p {
+	width: 400px;
+	height: 400px;
+	font-size: 50px;
+	color: #fff;
+}
+.abc {
+	overflow: hidden;
+}
+.abc li {
+	float: left;
+	width: 100px;
+	height: 48px;
+	text-align: center;
+	line-height: 50px;
+	border-bottom: 2px solid #f00;
+	cursor: pointer;
+}
+.abc .act {
+	height: 50px;
+	color: #fff;
+	border-bottom: none;
+}
+.def {
+	width: 400px;
+	height: 200px;
+	font-size: 30px;
+	color: #fff;
+	background: #333;
+}
+.def p{
+	width: 400px;
+	height: 200px;
+}

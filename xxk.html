@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡</title>
+	<link rel="stylesheet" type="text/css" href="css/xxk.css">
+</head>
+<body>
+	<div class="wrap">
+		<div class="nav">
+			<ul class="myul" id="myul">
+				<li class="active">一岁</li>
+				<li>两岁</li>
+				<li>三岁</li>
+				<li>四岁</li>
+			</ul>
+		</div>
+		<div class="con">
+			<p>这是一岁</p>
+			<p>这是两岁</p>
+			<p>这是三岁</p>
+			<p>这是四岁</p>
+		</div>
+	</div>
+	<div class="wrap">
+		<div class="nav">
+			<ul class="abc" id="myul">
+				<li class="act">一岁</li>
+				<li>两岁</li>
+				<li>三岁</li>
+				<li>四岁</li>
+			</ul>
+		</div>
+		<div class="def">
+			<p>这是一岁</p>
+			<p>这是两岁</p>
+			<p>这是三岁</p>
+			<p>这是四岁</p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/mylib.js"></script>
+<script type="text/javascript">
+	function myTab(option){
+		alert(this.etype);
+		if (option.etype == undefined) {
+			option.etype = "mouseover";
+		};
+		if(option.act == undefined){
+			option.act = "active";
+		}
+		var $nav = document.querySelector(option.nav),
+			$con = document.querySelector(option.con),
+			$li = $nav.childNodes,
+			$p = $con.childNodes;
+		// this.etype = "mouseover";
+		// this.act = "active";
+		$nav.addHandler(option.etype,function(e){
+			var e = e||window.event;
+			var target = e.target||e.srcElement;
+			if (target.tagName== "LI"){
+				showTab(target.index());
+			}
+		});
+		function showTab(_now){
+			for (var i = 0; i < $p.length; i++) {
+				if (i==_now) {
+					$p[i].style.display = "block";
+					$li[i].setAttribute("class",option.act);
+				 }else{
+					$p[i].style.display = "none";
+					$li[i].removeAttribute("class");
+				}
+			}
+		}	
+	}
+	myTab({
+		nav:".abc",
+		con:".def",
+		etype:"click",
+		act:"act"
+	});
+	myTab({
+		nav:".myul",
+		con:".con",
+	});
+	
+</script>
+</html>
