@@ -41,50 +41,51 @@
 </body>
 <script type="text/javascript" src="js/mylib.js"></script>
 <script type="text/javascript">
-	/*function myTab(option){
-		if (option.etype == undefined) {
-			option.etype = "mouseover";
-		};
-		if(option.act == undefined){
-			option.act = "active";
+	var $ul = document.querySelector(".myul"),
+	$con = document.querySelector(".con"),
+	$li = $ul.childNodes,
+	$p = $con.childNodes,
+	oldindex = 0,
+	timer = setInterval(autoplay,5000);
+	function showTab(_now){
+		for (var i = 0; i < $p.length; i++) {
+			if (i==_now) {
+				$p[i].style.display = "block";
+				$li[i].addClass("active");
+			 }else{
+				$p[i].style.display = "none";
+				$li[i].removeClass("active");
+			}
 		}
-		var $nav = document.querySelector(option.nav),
-			$con = document.querySelector(option.con),
-			$li = $nav.childNodes,
-			$p = $con.childNodes;
-		this.etype = "mouseover";
-		this.act = "active";
-		$nav.addHandler(option.etype,function(e){
-			var e = e||window.event;
-			var target = e.target||e.srcElement;
-			if (target.tagName== "LI"){
-				showTab(target.index());
-			}
-		});
-		function showTab(_now){
-			for (var i = 0; i < $p.length; i++) {
-				if (i==_now) {
-					$p[i].style.display = "block";
-					$li[i].setAttribute("class",option.act);
-				 }else{
-					$p[i].style.display = "none";
-					$li[i].removeAttribute("class");
-				}
-			}
-		}	
 	}
-	myTab({
-		nav:".abc",
-		con:".def",
-		etype:"click",
-		act:"act"
+	function autoplay(){
+		if (oldindex<$li.length-1 ) {
+			oldindex++;
+		} else  {
+			oldindex=0;
+		}
+		showTab(oldindex);
+	}
+	
+	$ul.addHandler("mouseover",function(e){
+		var e = e||window.event;
+		var target = e.target||e.srcElement;
+		if (target.tagName == "LI") {
+			oldindex = target.index();
+			showTab(target.index());
+			clearInterval(timer);
+		}
+		// console.log(target.index());
+		
 	});
-	myTab({
-		nav:".myul",
-		con:".con",
-	});
-	*/
-	Element.prototype.myTab=function(option){
+	$ul.addHandler("mouseout",function(e){
+		var e = e||window.event;
+		var target = e.target||e.srcElement;
+		if (target.tagName == "LI") {
+			timer = setInterval(autoplay,5000);
+		} 
+	})
+	/*Element.prototype.myTab=function(option){
 		if (option.etype == undefined) {
 			option.etype = "mouseover";
 		};
@@ -125,7 +126,6 @@
 	abc.myTab({
 		mycon:".def",
 		act:"act"
-	}) 
-
+	}) */
 </script>
 </html>
