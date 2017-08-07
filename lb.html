@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<link rel="stylesheet" href="css/lunbo.css">
+</head>
+<body>
+	<div class="wrap">
+		<ul class="pic-box">
+			<li>
+				<img src="images/nvliu1.jpg">
+			</li>
+			<li class="undis">
+				<img src="images/nvliu2.jpg">
+			</li>
+			<li class="undis">
+				<img src="images/nvliu3.jpg">
+			</li>
+			<li class="undis">
+				<img src="images/nvliu4.jpg">
+			</li>
+			<li class="undis">
+				<img src="images/nvliu5.jpg">
+			</li>
+		</ul>
+		<ul class="pic-num">
+			<li class="activ">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+</body>
+<script src="js/mylib.js"></script>
+<script>
+	var $box = document.querySelector(".pic-box"),
+	$num = document.querySelector(".pic-num"),
+	$box_li = $box.childNodes,
+	$num_li = $num.childNodes;
+	var untime = 0.1;
+	var oldindex = 0;
+	var newindex;
+	var timer = setInterval(autoplay,1000);
+	function showTab(_old,_new) {
+		oldindex = _new;
+		if (_old!=_new) {
+			// $box_li[_old].addClass("undis");
+			$box_li[_old].style.opacity=1;
+			
+			var t1 = setInterval(function(){
+				var O_opa = Number($box_li[_old].style.opacity);
+				if (O_opa<0.1) {
+					clearInterval(t1);
+					$box_li[_old].style.opacity = 0;
+				}else{
+					$box_li[_old].style.opacity = O_opa-0.1; 
+				}
+				// console.log($box_li[_old]);
+			},60);
+			$num_li[_old].removeClass("activ");
+			// $box_li[_new].removeClass("undis");
+			$box_li[_new].style.opacity=0;
+			
+			var t2 = setInterval(function(){
+				var N_opa = Number($box_li[_new].style.opacity);
+				if (N_opa >0.9) {
+					clearInterval(t2);
+					$box_li[_new].style.opacity = 1;
+				}else {
+					$box_li[_new].style.opacity = N_opa+0.1;
+				}
+				console.log($box_li[_new]);
+			},60);
+			$num_li[_new].addClass("activ");
+		}
+		
+	}
+	function autoplay(){
+		if (oldindex<$box_li.length-1) {
+			newindex = oldindex+1;
+		} else {
+			newindex = 0;
+		}
+		showTab(oldindex,newindex);
+	}
+	$num.addHandler("mouseover",function(e){
+		var e = e||window.event;
+		var target = e.target||e.srcElement;
+		if (target.tagName == "LI") {
+			outtime = setTimeout(function(){
+				showTab(oldindex,target.index());
+			},200);
+			clearInterval(timer);
+		};
+	});
+	$num.addHandler("mouseout",function(e){
+		var e = e||window.event;
+		var target = e.target||e.srcElement;
+		if (target.tagName == "LI") {
+			clearTimeout(outtime);
+			timer = setInterval(autoplay,1000);
+		}
+	})
+</script>
+</html>
